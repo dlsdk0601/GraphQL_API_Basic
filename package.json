@@ -1,0 +1,19 @@
+{
+  "name": "graphql_api",
+  "version": "1.0.0",
+  "description": "GraphQL_Basic",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dlsdk0601/GraphQl_API_Basic.git"
+  },
+  "author": "dlsdk0601",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dlsdk0601/GraphQl_API_Basic/issues"
+  },
+  "homepage": "https://github.com/dlsdk0601/GraphQl_API_Basic#readme"
+}
