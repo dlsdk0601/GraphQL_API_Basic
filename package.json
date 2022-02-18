@@ -4,7 +4,7 @@
   "description": "GraphQL_Basic",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon --exec babel-node index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,15 @@
   "bugs": {
     "url": "https://github.com/dlsdk0601/GraphQl_API_Basic/issues"
   },
-  "homepage": "https://github.com/dlsdk0601/GraphQl_API_Basic#readme"
+  "homepage": "https://github.com/dlsdk0601/GraphQl_API_Basic#readme",
+  "dependencies": {
+    "babel-node": "^0.0.1-security",
+    "graphql-yoga": "^1.18.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.3",
+    "@babel/core": "^7.17.4",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11"
+  }
 }
