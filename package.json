@@ -18,7 +18,8 @@
   "homepage": "https://github.com/dlsdk0601/GraphQl_API_Basic#readme",
   "dependencies": {
     "babel-node": "^0.0.1-security",
-    "graphql-yoga": "^1.18.3"
+    "graphql-yoga": "^1.18.3",
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.3",
