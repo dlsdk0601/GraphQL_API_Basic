@@ -1,10 +1,12 @@
 {
+  "type": "module",
   "name": "graphql_api",
   "version": "1.0.0",
   "description": "GraphQL_Basic",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node index.js"
+    "start": "nodemon --exec babel-node index.js",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -17,14 +19,16 @@
   },
   "homepage": "https://github.com/dlsdk0601/GraphQl_API_Basic#readme",
   "dependencies": {
+    "apollo-server": "^3.7.0",
     "babel-node": "^0.0.1-security",
-    "graphql-yoga": "^1.18.3",
+    "graphql": "^16.5.0",
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.3",
     "@babel/core": "^7.17.4",
     "@babel/node": "^7.16.8",
-    "@babel/preset-env": "^7.16.11"
+    "@babel/preset-env": "^7.16.11",
+    "nodemon": "^2.0.16"
   }
 }
