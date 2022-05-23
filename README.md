@@ -1,5 +1,7 @@
 # GraphQL API
 
+## new version review
+
 > API 란?
 
 <br />
@@ -60,6 +62,120 @@ client단에서 GraphQL을 사용하기 위해 서버단에서도 GrapQl을 사�
 <br />
 
 물론 서버를 수정해도 끈김없이 돌아가게 하기 위해 nodemon을 설치 했다
+
+> GraphQl server
+
+<br />
+
+nodemon을 설치한 후, package.json에서 scripts에 dev 명령을 추가 하였다.
+서버를 실행 시키기 위해
+
+```
+    npm run dev
+```
+
+를 터미널창에 명령 시킨다.
+
+<br />
+
+> ApolloServer setting
+
+<br />
+
+ApolloServer를 구축하기 위해 apollo-server를 npm으로 다운 받았고, 이를 통해 서버를 구축 하는 코드는
+
+```
+    import { ApolloServer } from "apollo-server";
+
+    const server = new ApolloServer({});
+
+    server.listen().then(({ url }) => {
+    console.log(url);
+    });
+
+```
+
+<br />
+
+이렇게 됩니다. 그런데 왠걸 npm run dev로 실행 시키면 오류가 발생합니다.
+해당 오류를 잘 살펴보면,
+
+```
+throw Error('Apollo Server requires either an existing schema, modules or typeDef
+```
+
+이러한 오류가 나옵니다.
+즉, apollo-server는 schema, modules 또는 typeDef를 요구한다고 나옵니다.
+
+<br />
+
+이게 무슨 말이냐.
+apollo-server를 구축하기 위해, type을 설정하라는 뜻입니다.
+gql은 Rest API와는 달리 type들의 집합이기 때문에 server에 data의 type을 전달해줘야 합니다.
+(ts와 비슷한 느낌이 스믈스믈 듭니다..)
+
+<br />
+
+> typeDefs
+
+<br />
+
+그러면, 서버를 돌리기 위해 typeDefs를 만들어 줍니다. type을 그냥 객체로 적어서 전달해주는게 아닌, apollo-server로 부터 gql이라는 함수를 받아와서 ``(백틱)안에 type을 적어주면 됩니다.
+(일전에 styled-components를 공부하면서 함수의 파라미터를 백틱안에 적어서 실행 할 수 있다는걸 확인 했습니다.)
+
+<br />
+
+```
+    import { ApolloServer, gql } from "apollo-server";
+
+    const typeDefs = gql`
+    type Query {
+        allTweets: [Tweet]
+        tweet(id: ID): Tweet
+    }
+    `;
+
+    const server = new ApolloServer({ typeDefs });
+
+    server.listen().then(({ url }) => {
+    console.log(url);
+    });
+
+```
+
+<br />
+
+위 와 같이 작성 후, 다시 실행 시키면 오류 없이 서버가 돌아가고 포트 번호 4000번으로 돌아가고 있다. 해당 localhost로 이동하면 apollo-server자체가 서버 확인을 위한 사이트 제공합니다.
+(마치 postman같은 사이트가 나오고, query문이 잘 넘어오는지 확인 가능합니다.)
+
+<br />
+
+> Scalar Type
+
+<br />
+
+TypeDefs을 이용하여 gql에 type을 넘겨주는데, gql에서 기본적으로 제공하는 type을 Scalar Type이라고 한다. 공식 문서에 적혀 있는 Scalar Type은
+
+```
+    Int: A Signed 32 bit integer (정수형)
+    Float: A Signed double-precision floating-point value (유리수)
+    String: A UTF-8 character sequence (문자열)
+    Boolean: true or false (불리언)
+    ID: The ID scalar type represents a unique identifier, often used to refetch an object or as the key for a cache. (고유 아이디)
+
+```
+
+입니다.
+
+## old version
+
+> GraphQL install
+
+<br />
+
+```
+    npm i apollo-yoga
+```
 
 <br />
 
