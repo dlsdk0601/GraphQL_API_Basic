@@ -167,6 +167,109 @@ TypeDefs을 이용하여 gql에 type을 넘겨주는데, gql에서 기본적으�
 
 입니다.
 
+<br />
+
+> resolver
+
+<br />
+
+resolver는 GraphQL의 여러가지 타입(Query, Mutation)이 실제로 작동하는 부분입니다. 즉 스키마를 정의하면 그 스키마 필드에서 사용되는 콜백을 정의해주는 곳을 resolver라고 합니다.
+
+<br />
+
+```
+    const resolvers = {
+        Query: {
+            allTweets: () => tweets,
+            tweet: (_, args) => {
+                const { id } = args;
+                return tweets.find((item) => item.id === id);
+            },
+            allUsers: () => users,
+        },
+        Mutation: {
+            postTweet: (_, { text, userId }) => {
+                const newTweet = {
+                    id: tweets.length + 1,
+                    text,
+                };
+                tweets.push(newTweet);
+                return newTweet;
+            },
+            deleteTweet: (_, { id }) => {
+                const tweet = tweets.find((item) => item.id === id);
+                if (!tweet) {
+                    return false;
+                }
+
+                tweets = tweets.filter((item) => item !== id);
+                return true;
+            },
+        },
+    };
+```
+
+<br>
+
+resolver안에는 꼭 type Query에 들어있는 이름과 키값을 똑같이 네이밍으로 해야합니다.
+왜냐하면 GraphQL을 이용하여 Query안에 어떠한 필드를 호출할 때,
+resolvers안에 있는 같은 필드 이름의 함수를 호출하게된다
+그리고 Qeury에서 정의해준 파라미터를 받으려면 두번째 인자를 받아야한다.
+첫번째 인자는 root입니다.
+
+<br />
+
+> Rest API를 GraphQL로 감싸기
+
+<br />
+
+먼저 RestAPI의 response의 type을 정의 해준다.
+
+<br />
+
+```
+    type Movie {
+        id: Int!
+        url: String!
+        imdb_code: String!
+        title: String!
+        title_english: String!
+        title_long: String!
+        slug: String!
+        year: Int!
+        rating: Float!
+        runtime: Float!
+        genres: [String]!
+        summary: String
+        description_full: String!
+        synopsis: String
+        yt_trailer_code: String!
+        language: String!
+        background_image: String!
+        background_image_original: String!
+        small_cover_image: String!
+        medium_cover_image: String!
+        large_cover_image: String!
+    }
+```
+
+<br />
+
+그리고 resolver에서 fetch를 이용하여 불러오면 끝입니다.
+해당 작업은 로딩에 시간이 좀 걸리는데, RestAPI로 먼저 불러와야하기 때문에 오래 걸리는 것이고, 현업에서는 해당 방법을 굳이 선호하지는 않을꺼 같습니다.
+
+<br />
+
+```
+    allMovies: () => {
+        return fetch("https://yts.mx/api/v2/list_movies.json")
+            .then((res) => res.json())
+            .then((json) => json.data.movies);
+    }
+```
+
+<br />
+
 ## old version
 
 > GraphQL install

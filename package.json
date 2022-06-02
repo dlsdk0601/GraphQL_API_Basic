@@ -22,7 +22,7 @@
     "apollo-server": "^3.7.0",
     "babel-node": "^0.0.1-security",
     "graphql": "^16.5.0",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.7"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.3",
